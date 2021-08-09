@@ -1,13 +1,12 @@
 package main
 
 import (
-    "database/sql"
-    "fmt"
+    _ "database/sql"
+    _ "fmt"
     "log"
 
     _ "github.com/lib/pq"
     "github.com/jmoiron/sqlx"
-	restful "github.com/emicklei/go-restful/v3"
 )
 
 var schema = `
@@ -39,8 +38,8 @@ type Player struct {
     lastGame string `db:"lastGame"`
     wins     int    `db:"wins"`
     mu       int    `db:"mu"`
-    sigma    int;   `db:"sigma"`
-    games    int;   `db:"games"`
+    sigma    int    `db:"sigma"`
+    games    int    `db:"games"`
 }
 
 type PlayerHistoricalDataEntry struct {
@@ -50,11 +49,19 @@ type PlayerHistoricalDataEntry struct {
     sigma       float64 `db:"sigma"`
 }
 
-func init(){
+func Init(){
+    db := GetCon()
+    db.MustExec(schema)
+}
+
+func GetCon() *sqlx.DB{
     db, err := sqlx.Connect("postgres", "user=foo dbname=bar sslmode=disable")
     if err != nil {
         log.Fatalln(err)
     }
-    db.MustExec(schema)
-    tx.Commit()
+
+    return db;
+}
+
+func CloseAndCommit(*sqlx.DB){
 }
