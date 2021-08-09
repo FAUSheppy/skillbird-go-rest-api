@@ -1,0 +1,7 @@
+cache
+*.sqlite*
+*.dump
+*.sqlite.clean
+*.txt
+*.log
+*.swp
