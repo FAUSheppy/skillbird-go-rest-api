@@ -46,3 +46,20 @@ func HistoricalDataService() *restful.WebService {
 
 	return service
 }
+
+var roundTimestamp string =  "timestamp"
+var roundTimestampIdentifier string = "/{" + roundTimestamp + "}"
+
+func RoundService() *restful.WebService {
+	service := new(restful.WebService)
+	service.
+		Path("/rounds").
+		Consumes(restful.MIME_XML, restful.MIME_JSON).
+		Produces(restful.MIME_XML, restful.MIME_JSON)
+
+	service.Route(service.GET(roundTimestampIdentifier).To(GetRound))
+	service.Route(service.POST(NO_PATTERN).To(SubmitRound))
+	service.Route(service.DELETE(roundTimestampIdentifier).To(DeleteRound))
+
+	return service
+}

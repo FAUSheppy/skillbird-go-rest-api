@@ -42,6 +42,17 @@ type Player struct {
     games    int    `db:"games"`
 }
 
+type Round struct {
+    timestamp   string  `db:"timestamp"`
+    winners     string  `db:"winners"`
+    losers      string  `db:"losers"`
+    winnerSide  int     `db:"winnerSie"`
+    mapName     string  `db:"map"`
+    duration    float64 `db:"duration"`
+    prediction  int     `db:"prediction"`
+    confidence  float64 `db:"confidence"`
+}
+
 type HistoricalEntry struct {
     id          string  `db:"id"`
     timestamp   string  `db:"timestamp"`

@@ -9,5 +9,6 @@ import (
 func main() {
 	restful.Add(PlayerService())
 	restful.Add(HistoricalDataService())
+	restful.Add(RoundService())
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
