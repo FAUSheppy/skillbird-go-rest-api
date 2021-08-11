@@ -1,0 +1,6 @@
+[submodule "open-web-leaderboard"]
+	path = open-web-leaderboard
+	url = https://github.com/FAUSheppy/open-web-leaderboard
+[submodule "skillbird"]
+	path = skillbird
+	url = https://github.com/FAUSheppy/skillbird
