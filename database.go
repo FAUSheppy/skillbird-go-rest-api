@@ -42,7 +42,7 @@ type Player struct {
     games    int    `db:"games"`
 }
 
-type PlayerHistoricalDataEntry struct {
+type HistoricalEntry struct {
     id          string  `db:"id"`
     timestamp   string  `db:"timestamp"`
     mu          float64 `db:"mu"`

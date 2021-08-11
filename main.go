@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
-	restful.Add(New())
+	restful.Add(PlayerService())
+	restful.Add(HistoricalDataService())
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

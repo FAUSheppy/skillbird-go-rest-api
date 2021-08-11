@@ -9,10 +9,13 @@ import (
     restful "github.com/emicklei/go-restful"
 )
 
+var NO_PATTERN string = ""
+
 var playerIdIdentifier string =  "user-id"
 var playerIdPattern    string = "/{" + playerIdIdentifier + "}"
 
-func New() *restful.WebService {
+
+func PlayerService() *restful.WebService {
 	service := new(restful.WebService)
 	service.
 		Path("/players").
@@ -27,32 +30,19 @@ func New() *restful.WebService {
 	return service
 }
 
-func FindPlayer(request *restful.Request, response *restful.Response){
-        id := request.PathParameter(playerIdIdentifier)
-        db := GetCon()
-        player := Player{}
-        db.Get(player, "SELECT * from players where id=$1", id)
-        response.WriteEntity(player)
-}
+var historicalTimestamp string =  "timestamp"
+var historicalTimestampPattern string = "/{" + historicalTimestamp + "}"
 
-func UpdatePlayer(request *restful.Request, response *restful.Response){
-        DeletePlayer(request, response)
-        AddPlayer(request, response)
-}
+func HistoricalDataService() *restful.WebService {
+	service := new(restful.WebService)
+	service.
+		Path("/historical").
+		Consumes(restful.MIME_XML, restful.MIME_JSON).
+		Produces(restful.MIME_XML, restful.MIME_JSON)
 
-func AddPlayer(request *restful.Request, response *restful.Response){
-        player := new(Player)
-		request.ReadEntity(&player)
-        db := GetCon()
-        db.NamedExec(`INSERT INTO players (id, name, lastgame, wins, mu, sigma, games)
-        VALUES (:id, :name, :lastGame, :wins, :mu, :sigma, :games)`, player)
-        response.WriteEntity(player)
-}
+	service.Route(service.GET(historicalTimestampPattern).To(GetHistoricalData))
+	service.Route(service.POST(NO_PATTERN).To(SubmitHistoricalData))
+	service.Route(service.DELETE(historicalTimestampPattern).To(DeleteHistoricalData))
 
-func DeletePlayer(request *restful.Request, response *restful.Response){
-        id := request.PathParameter(playerIdIdentifier)
-        db := GetCon()
-        player := Player{}
-        db.MustExec("DELETE from players where id=$1", id)
-        response.WriteEntity(player)
+	return service
 }
