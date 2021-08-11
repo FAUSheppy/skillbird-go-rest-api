@@ -16,7 +16,7 @@ format:
 check-go:
 	golangci-lint run
 
-build-docker: require-version
+build-docker:
 	cp ${BUILD_DIR}/gotify-linux-amd64 ./docker/skillbird-go-rest-api
 	cd ${DOCKER_DIR} && \
 		docker build \
@@ -25,9 +25,7 @@ build-docker: require-version
 		-t skillbird/rest-api:$(shell echo $(VERSION) | cut -d '.' -f -2) .
 	rm ${DOCKER_DIR}skillbird-go-rest-api
 
-build-bin : require-version
+build-bin:
 	go build
 
-.PHONY test-main test-coverage format check-go build-docker build-bin
-
-
+.PHONY:	test-main	test-coverage	format	check-go	build-docker	build-bin
