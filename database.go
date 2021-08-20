@@ -60,6 +60,18 @@ type HistoricalEntry struct {
     sigma       float64 `db:"sigma"`
 }
 
+type Map struct {
+    name          string  `db:"name"`
+    games         string  `db:"t_games"`
+    ins_win       float64 `db:"w_ins"`
+    sec_win       float64 `db:"w_sec"`
+    accuracy      float64 `db:"rsa"`
+}
+
+type Rank struct {
+    rank          int
+}
+
 func Init(){
     db := GetCon()
     db.MustExec(schema)
