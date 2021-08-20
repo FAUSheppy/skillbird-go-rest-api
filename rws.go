@@ -78,3 +78,18 @@ func MapService() *restful.WebService {
 
 	return service
 }
+
+var playerRating string =  "rating"
+var playerRatingIdentifier string = "/{" + playerRating + "}"
+
+func RankService() *restful.WebService {
+	service := new(restful.WebService)
+	service.
+		Path("/rank").
+		Consumes(restful.MIME_XML, restful.MIME_JSON).
+		Produces(restful.MIME_XML, restful.MIME_JSON)
+
+	service.Route(service.GET(playerRatingIdentifier).To(GetPlayerRankByRating))
+
+	return service
+}
