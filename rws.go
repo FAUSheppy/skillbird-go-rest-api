@@ -63,3 +63,18 @@ func RoundService() *restful.WebService {
 
 	return service
 }
+
+var mapName string =  "mapName"
+var mapNameIdentifier string = "/{" + mapName + "}"
+
+func MapService() *restful.WebService {
+	service := new(restful.WebService)
+	service.
+		Path("/maps").
+		Consumes(restful.MIME_XML, restful.MIME_JSON).
+		Produces(restful.MIME_XML, restful.MIME_JSON)
+
+	service.Route(service.GET(mapNameIdentifier).To(GetMap))
+
+	return service
+}
