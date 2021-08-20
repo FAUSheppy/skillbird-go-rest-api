@@ -13,6 +13,6 @@ func GetPlayerRankByRating(request *restful.Request, response *restful.Response)
         ts := request.PathParameter(playerRating)
         db := GetCon()
         rank := Rank{}
-        db.Get(entry, "SELECT COUNT(*) from players where (mu-2*sigma) > (?-2*?)", ts)
+        db.Get(rank, "SELECT COUNT(*) from players where (mu-2*sigma) > (?-2*?)", ts)
         response.WriteEntity(rank)
 }
